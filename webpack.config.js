@@ -9,12 +9,12 @@ module.exports = {
   },
 
   output: {
-    path: __dirname + '/build',
+    path: __dirname + '/public',
     filename: 'game.bundle.js'
   },
 
   devServer: {
-    contentBase: __dirname + '/build'
+    contentBase: __dirname + '/public'
   },
 
   module: {

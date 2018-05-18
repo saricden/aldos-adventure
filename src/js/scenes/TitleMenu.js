@@ -7,13 +7,23 @@ class TitleMenu extends Phaser.Scene {
     }
 
     preload() {
-        // this.load.image('face', 'assets/pics/bw-face.png');
-        // this.load.image('arrow', 'assets/sprites/longarrow.png');
-        console.log("Preload scene A");
+        this.load.image('logo', 'img/temp/amaze-logo.png');
+        this.load.image('play-btn', 'img/temp/play-btn.png');
     }
 
     create() {
-        console.log("Create scene A, starting B...");
+        const logo = this.add.image(window.innerWidth/2, window.innerHeight/2-100, 'logo');
+        const playBtn = this.add.image(window.innerWidth/2, window.innerHeight/2, 'play-btn');
+        
+        playBtn.setInteractive();
+        playBtn.on('clicked', this.playGame, this);
+
+        this.input.on('gameobjectup', (pointer, gameObject) => {
+            gameObject.emit('clicked', gameObject);
+        });
+    }
+
+    playGame() {
         this.scene.start('gameScene');
     }
 }
