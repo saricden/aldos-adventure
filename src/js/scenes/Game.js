@@ -101,6 +101,7 @@ class Game extends Phaser.Scene {
     // Camera
     this.cameras.main.startFollow(this.blobGuy);
     this.cameras.main.setBackgroundColor('#AAF');
+    this.cameras.main.setRoundPixels(true); // seems to fix the tilemap from bleeding
 
     // Add collisions
     // this.physics.add.collider(this.blobGuy, platforms);
