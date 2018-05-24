@@ -4,6 +4,15 @@ class Game extends Phaser.Scene {
 
       this.blobGuy = null;
       this.hpText = null;
+      // UI button bools
+      this.btns = {
+        L: false,
+        R: false,
+        J: false,
+        A: false
+      };
+
+      // Keyboard keydown bools
       this.keys = {
         W: false,
         S: false,
@@ -18,7 +27,10 @@ class Game extends Phaser.Scene {
       frameHeight: 110,
       endFrame: 13
     });
-    // this.load.image('platform', 'img/temp/platform.png');
+    this.load.image('btn-left', 'img/temp/btn-left.png');
+    this.load.image('btn-right', 'img/temp/btn-right.png');
+    this.load.image('btn-up', 'img/temp/btn-up.png');
+    this.load.image('btn-atk', 'img/temp/btn-attack.png');
     this.load.image('IslandTileset', 'img/temp/island-tileset.png', 50, 50);
     this.load.tilemapTiledJSON('level1', 'maps/level1.json');
   }
@@ -88,6 +100,8 @@ class Game extends Phaser.Scene {
     this.blobGuy.vy = 0;
     this.blobGuy.setScale(0.65);
 
+    // Screen UI
+    // ------------------------------------
     // Add HP text
     this.hpText = this.add.text(5, 5, 'HP: 5', {
       fontFamily: 'Sans-Serif',
@@ -96,6 +110,60 @@ class Game extends Phaser.Scene {
       backgroundColor: '#000000',
       padding: 5,
     }).setScrollFactor(0);
+
+    // Add arrow btns
+    const lBtn = this.add.image(0, window.innerHeight, 'btn-left').setScrollFactor(0);
+    lBtn.setOrigin(0, 1);
+    lBtn.setInteractive();
+
+    lBtn.on('pointerover', (pointer) => {
+      if (pointer.isDown) {
+        this.btns.L = true;
+      }
+    });
+    lBtn.on('pointerdown', () => {
+      this.btns.L = true;
+    });
+    lBtn.on('pointerout', () => {
+      this.btns.L = false;
+    });
+
+    const rBtn = this.add.image(80, window.innerHeight, 'btn-right').setScrollFactor(0);
+    rBtn.setOrigin(0, 1);
+    rBtn.setInteractive();
+
+    rBtn.on('pointerover', (pointer) => {
+      if (pointer.isDown) {
+        this.btns.R = true;
+      }
+    });
+    rBtn.on('pointerdown', () => {
+      this.btns.R = true;
+    });
+    rBtn.on('pointerout', () => {
+      this.btns.R = false;
+    });
+
+    // Jump btn
+    const jBtn = this.add.image(window.innerWidth-80, window.innerHeight, 'btn-up').setScrollFactor(0);
+    jBtn.setOrigin(1, 1);
+    jBtn.setInteractive();
+
+    jBtn.on('pointerdown', () => {
+      this.btns.J = true;
+    });
+
+    const aBtn = this.add.image(window.innerWidth, window.innerHeight, 'btn-atk').setScrollFactor(0);
+    aBtn.setOrigin(1, 1);
+
+    this.input.on('pointerup', () => {
+      this.btns = {
+        L: false,
+        R: false,
+        J: false,
+        A: false
+      };
+    });
 
 
     // Camera
@@ -116,11 +184,11 @@ class Game extends Phaser.Scene {
 
   update() {
     // Key input & movement
-    if (this.keys.A.isDown) {
+    if (this.keys.A.isDown || this.btns.L) {
       this.blobGuy.setVelocityX(-160);
       this.blobGuy.setFlipX(true);
     }
-    else if (this.keys.D.isDown) {
+    else if (this.keys.D.isDown || this.btns.R) {
       this.blobGuy.setVelocityX(160);
       this.blobGuy.setFlipX(false);
     }
@@ -128,7 +196,7 @@ class Game extends Phaser.Scene {
       this.blobGuy.setVelocityX(0);
     }
 
-    if (this.keys.W.isDown && this.blobGuy.body.blocked.down) {
+    if (this.blobGuy.body.blocked.down && (this.keys.W.isDown || this.btns.J)) {
       this.blobGuy.setVelocityY(-210);
     }
 
