@@ -145,8 +145,10 @@ class Game extends Phaser.Scene {
     jBtn.setOrigin(1, 1);
     jBtn.setInteractive();
 
-    jBtn.on('pointerup', () => {
-      this.btns.J = true;
+    jBtn.on('pointerdown', () => {
+      if (this.blobGuy.body.blocked.down) {
+        this.btns.J = true;        
+      }
     });
 
     const aBtn = this.add.image(window.innerWidth, window.innerHeight, 'btn-atk').setScrollFactor(0);
