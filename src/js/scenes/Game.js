@@ -116,15 +116,13 @@ class Game extends Phaser.Scene {
     lBtn.setOrigin(0, 1);
     lBtn.setInteractive();
 
-    lBtn.on('pointerover', (pointer) => {
-      if (pointer.isDown) {
-        this.btns.L = true;
-      }
-    });
     lBtn.on('pointerdown', () => {
       this.btns.L = true;
     });
-    lBtn.on('pointerout', () => {
+    lBtn.on('pointerup', () => {
+      this.btns.L = false;
+    });
+    lBtn.on('pointerupoutside', () => {
       this.btns.L = false;
     });
 
@@ -132,15 +130,13 @@ class Game extends Phaser.Scene {
     rBtn.setOrigin(0, 1);
     rBtn.setInteractive();
 
-    rBtn.on('pointerover', (pointer) => {
-      if (pointer.isDown) {
-        this.btns.R = true;
-      }
-    });
     rBtn.on('pointerdown', () => {
       this.btns.R = true;
     });
-    rBtn.on('pointerout', () => {
+    rBtn.on('pointerup', () => {
+      this.btns.R = false;
+    });
+    rBtn.on('pointerupoutside', () => {
       this.btns.R = false;
     });
 
@@ -149,20 +145,28 @@ class Game extends Phaser.Scene {
     jBtn.setOrigin(1, 1);
     jBtn.setInteractive();
 
-    jBtn.on('pointerdown', () => {
+    jBtn.on('pointerup', () => {
       this.btns.J = true;
     });
 
     const aBtn = this.add.image(window.innerWidth, window.innerHeight, 'btn-atk').setScrollFactor(0);
     aBtn.setOrigin(1, 1);
 
-    this.input.on('pointerup', () => {
-      this.btns = {
-        L: false,
-        R: false,
-        J: false,
-        A: false
-      };
+    this.input.on('pointermove', (pointer) => {
+      if (pointer.isDown) {
+        if (lBtn.getBounds().contains(pointer.x, pointer.y)) {
+          this.btns.L = true;
+          this.btns.R = false;
+        }
+        else if (rBtn.getBounds().contains(pointer.x, pointer.y)) {
+          this.btns.R = true;
+          this.btns.L = false;
+        }
+        else {
+          this.btns.R = false;
+          this.btns.L = false;
+        }
+      }
     });
 
 
@@ -198,6 +202,7 @@ class Game extends Phaser.Scene {
 
     if (this.blobGuy.body.blocked.down && (this.keys.W.isDown || this.btns.J)) {
       this.blobGuy.setVelocityY(-210);
+      this.btns.J = false;
     }
 
     // Animations
