@@ -132,11 +132,9 @@ class Game extends Phaser.Scene {
 
     lBtn.on('pointerdown', () => {
       this.btns.L = true;
+      this.btns.R = false;
     });
     lBtn.on('pointerup', () => {
-      this.btns.L = false;
-    });
-    lBtn.on('pointerupoutside', () => {
       this.btns.L = false;
     });
 
@@ -146,11 +144,9 @@ class Game extends Phaser.Scene {
 
     rBtn.on('pointerdown', () => {
       this.btns.R = true;
+      this.btns.L = false;
     });
     rBtn.on('pointerup', () => {
-      this.btns.R = false;
-    });
-    rBtn.on('pointerupoutside', () => {
       this.btns.R = false;
     });
 
@@ -175,6 +171,9 @@ class Game extends Phaser.Scene {
         else if (rBtn.getBounds().contains(pointer.x, pointer.y)) {
           this.btns.R = true;
           this.btns.L = false;
+        }
+        else if (jBtn.getBounds().contains(pointer.x, pointer.y)) {
+          this.btns.J = true;
         }
         else {
           this.btns.R = false;
