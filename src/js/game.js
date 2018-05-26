@@ -9,11 +9,11 @@ var config = {
     width: window.innerWidth,
     height: window.innerHeight,
     backgroundColor: 0xFFAAFF,
+    // pixelArt: true,
     physics: {
       default: 'arcade',
       arcade: {
-        gravity: {y: 200},
-        debug: true
+        gravity: {y: 200}
       }
     },
     scene: [ TitleMenu, Game ]

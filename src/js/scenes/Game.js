@@ -4,6 +4,8 @@ class Game extends Phaser.Scene {
 
       this.blobGuy = null;
       this.hpText = null;
+      this.jordan1 = null;
+      this.jordan2 = null;
       // UI button bools
       this.btns = {
         L: false,
@@ -33,6 +35,8 @@ class Game extends Phaser.Scene {
     this.load.image('btn-atk', 'img/temp/btn-attack.png');
     this.load.image('IslandTileset', 'img/temp/island-tileset.png', 50, 50);
     this.load.tilemapTiledJSON('level1', 'maps/level1.json');
+    this.load.image('jordan1', 'img/temp/jordan-guy1.png');
+    this.load.image('jordan2', 'img/temp/jordan-guy2.png');
   }
 
   create() {
@@ -92,13 +96,23 @@ class Game extends Phaser.Scene {
 
     groundLayer.setCollisionBetween(1, 30);
 
-    // Configure sprites
+    // Configure MC
     this.blobGuy = this.physics.add.sprite(150, 150, 'blob');
     this.blobGuy.setBounce(0);
-    // this.blobGuy.setCollideWorldBounds(true);
     this.blobGuy.vx = 0;
     this.blobGuy.vy = 0;
     this.blobGuy.setScale(0.65);
+
+    // Add Jordan's beautiful sprites
+    this.jordan1 = this.physics.add.sprite(500, 50, 'jordan1');
+    this.jordan1.setScale(0.15);
+    this.jordan2 = this.physics.add.sprite(750, 150, 'jordan2');
+    this.jordan2.setScale(0.15);
+
+    // Add collisions
+    this.physics.add.collider(this.blobGuy, groundLayer);
+    this.physics.add.collider(this.jordan1, groundLayer);
+    this.physics.add.collider(this.jordan2, groundLayer);
 
     // Screen UI
     // ------------------------------------
@@ -175,10 +189,6 @@ class Game extends Phaser.Scene {
     this.cameras.main.setBackgroundColor('#AAF');
     this.cameras.main.setRoundPixels(true); // seems to fix the tilemap from bleeding
 
-    // Add collisions
-    // this.physics.add.collider(this.blobGuy, platforms);
-    this.physics.add.collider(this.blobGuy, groundLayer);
-
     // Add key events
     this.keys.W = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
     this.keys.S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
@@ -225,8 +235,18 @@ class Game extends Phaser.Scene {
         this.blobGuy.anims.play('fall', true);
       }
     }
-  }
+    
+    // Jordan's dudes
+    if (this.blobGuy.x > this.jordan1.x)
+      this.jordan1.setFlipX(false);
+    else
+      this.jordan1.setFlipX(true);
 
+    if (this.blobGuy.x > this.jordan2.x)
+      this.jordan2.setFlipX(false);
+    else
+      this.jordan2.setFlipX(true);
+  }
 }
 
 export default Game;
