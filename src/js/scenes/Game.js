@@ -155,10 +155,6 @@ class Game extends Phaser.Scene {
     jBtn.setOrigin(1, 1);
     jBtn.setInteractive();
 
-    jBtn.on('pointerup', () => {
-      this.btns.J = true;
-    });
-
     const aBtn = this.add.image(window.innerWidth, window.innerHeight, 'btn-atk').setScrollFactor(0);
     aBtn.setOrigin(1, 1);
 
