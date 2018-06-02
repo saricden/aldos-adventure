@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="50" tileheight="50">
+ <tileset firstgid="1" name="IslandTileset" tilewidth="50" tileheight="50">
+  <image source="../img/temp/island-tileset.png" width="250" height="300"/>
+ </tileset>
+ <layer name="blocking" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2l1vgjAUAFDGNj/mw/awR///79RGmnVNIViobuGc5EZjUAmXXtoLu67r9kMcrvHR8Uyna5yT+Hzu7mze14xt4vg5Nt4X5uWDxwn5SOvV94zvHIfYN9yvrXL9+Fvy8VGTj8MQLLdGPnK77lbPzJ3vtyQfr4XP+srf4qY2H31h2zQXpd8q5Y/f8nyEeO9+1uv5a4iXbNv8s3Phf/pke3VsXCkfa8TU/6hj4/L57toRxkM+dtIxeExC/6x9Pu4NY6e9e/Ixpz8AMCWsucP1dsm6e+5c7m3pzm5A2pevrfFjc4fINX2+U/LeOfw8oU6FdUJ+Htecw7Hmxdj6WmMttXU+r1fmtuupyYl7X8vlxzAXex9pz6PUByn1TORjWqkfXpqjppb0RtSrcaX7GUGr/q/xMS0e93g/I9ScUo2Rj/ZaH/exYJx8wGM494HW4ro6fcYnfXY6feYHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPg/Lq+UJRc=
+  </data>
+ </layer>
+ <layer name="non-blocking" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2k0KwkAMBtAcQAUVfxfe/5hOoLYijCsxU3gPvn0glCZhIoBvNi3bKbfiWog4t1ymPIprAQCANcidxi4zjtxp7DIA/MIplrtlL2aA/7nHcrfsxQzAWuVOsasugtm+5VhdBDP9qPc+Ex1CP6p9zkTZE/+QceRdKnuS34u+jOH1/uFaXQgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF1Pg18EPg==
+  </data>
+ </layer>
+</map>
