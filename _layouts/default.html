@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+  {% include head.html %}
+
+  <body>
+    <div class="navbar-fixed">
+      <nav>
+        <div class="nav-wrapper">
+          <a href="/" class="brand-logo">Avon's Adventure</a>
+          <a href="#" data-target="mobile-demo" class="sidenav-trigger">
+            <i class="material-icons">menu</i>
+          </a>
+          <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a class="btn" href="//avons-adventure.netlify.com" target="_blank">Play v0.0</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/resources">Resources</a></li>
+            <li><a href="//github.com/saricden/avons-adventure" target="_blank">GitHub</a></li>
+            <li><a href="/search"><i class="material-icons">search</i></a></li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <ul class="sidenav" id="mobile-demo">
+      <li><a class="btn" href="//avons-adventure.netlify.com" target="_blank">Play v0.0</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/resources">Resources</a></li>
+      <li><a href="//github.com/saricden/avons-adventure" target="_blank">GitHub</a></li>
+      <li><a href="/search"><i class="material-icons">search</i></a></li>
+    </ul>
+
+    {{ content }}
+
+    {% include footer.html %}
+
+  </body>
+
+</html>

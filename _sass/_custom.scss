@@ -1,0 +1,50 @@
+nav {
+  .brand-logo {
+    white-space: nowrap;
+
+    @media #{$large-and-up} {
+      padding-left: 15px;
+    }
+    @media #{$small-and-down} {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+header {
+  padding: 80px 15px;
+  background-image:
+    linear-gradient(
+      rgba(255, 255, 255, 0.85), 
+      rgba(255, 255, 255, 0.85)
+    ),
+    url(/img/banner.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center 0;
+
+
+  h1, p {
+    margin: 0;
+    margin-bottom: 15px;
+  }
+  h1 {
+    @media #{$small-and-down} {
+      font-size: 2.5rem;
+    }
+  }
+  p {
+    font-size: 18px;
+
+    @media #{$small-and-down} {
+      font-size: 14.5px;
+    }
+  }
+  @media #{$small-and-down} {
+    text-align: center;
+    background-position: center 0;
+  }
+  @media #{$extra-large-and-up} {
+    padding: 100px 15px;
+  }
+}
