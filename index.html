@@ -4,11 +4,50 @@ layout: default
 <header>
   <h1>Avon's Adventure</h1>
   <p>An open source platformer adventure game</p>
-  <a class="btn btn-large pulse" href="//avons-adventure.netlify.com">Play V0.0</a>
+  <a class="btn btn-large" href="//avons-adventure.netlify.com" target="_blank">Play V{{ site.version }}</a>
   <a href="//github.com/saricden/avons-adventure" target="_blank">
     or View the Source Code
   </a>
 </header>
 <div class="container">
+  <h2>Latest Posts</h2>
+  <div class="row">
 
+    {% for post in site.posts limit:3 %}
+    <div class="col s12 m6 l4">
+      <div class="card">
+        <div class="card-image">
+          <img src="/avons-adventure/img/thumbs/{{ post.thumb }}">
+        </div>
+        <div class="card-content">
+          <span class="card-title">
+            {{ post.title }}
+          </span>
+          {% for category in post.categories %}
+            <div class="chip">{{ category }}</div>
+          {% endfor %}
+          <p>{{ post.content | strip_html | truncatewords: 20 }}</p>
+        </div>
+        <div class="card-action">
+          <a href="/avons-adventure{{ post.url }}">
+            {% if post.categories[0] == "resources" %}
+              View Resource
+            {% else if post.categories[0] == "blog" %}
+              View Post
+            {% endif %}
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+
+  </div>
+
+  <h2>About Aldo's Adventure</h2>
+  <p class="flow-text">Aldo's Adventure is an open-source, free to play game with no ads or any form of monetization. That means you can just have fun and play it, or if you're curious about how it works, you can <a href="//github.com/saricden/avons-adventure/" target="_blank">open it up</a> and play with the source code. The game ships with an official build, which is fairly strict about what can be merged into the branch, and a community build, which you can pretty much change anything as long as it doesn't dramatically break the game or ruin anybody's fun.</p>
+  <div class="center-align margin-after">
+    <a href="//avons-adventure.netlify.com/" target="_blank" class="btn">Play V{{ site.version }}</a>
+    <a href="//avons-adventure-com.netlify.com/" target="_blank">or Play Community Build</a>
+  </div>
 </div>
