@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Blog is Live!"
+title: "The Blog is Live!"
 thumb: "blog-is-live.jpg"
 date: 2018-06-12 23:05:00
 categories: blog updates

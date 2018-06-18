@@ -1,0 +1,85 @@
+---
+layout: default
+---
+<header class="category {{ page.key }}">
+  <h1 class="post-title">
+    {% if page.categories[0] == "blog" %}
+      Blog:
+    {% else if page.categories[0] == "resources" %}
+      Resources:
+    {% endif %}
+    {{ page.title }}
+  </h1>
+  <p>{{ page.description }}</p>
+</header>
+
+{% assign sectionKey = null %}
+{% assign sectionTitle = null %}
+
+{% if page.categories[0] == 'blog' %}
+  {% assign sectionKey = 'blog' %}
+  {% assign sectionTitle = 'Blog' %}
+{% else if page.categories[0] == 'resources' %}
+  {% assign sectionKey = 'resources' %}
+  {% assign sectionTitle = 'Resources' %}
+{% endif %}
+
+<nav>
+  <div class="container">
+    <div class="nav-wrapper">
+      <div class="col s12">
+        <a href="{{ site.baseurl }}/{{ sectionKey }}" class="breadcrumb">{{ sectionTitle }}</a>
+        <a href="{{ site.baseurl }}/{{ sectionKey }}/{{ page.key }}/" class="breadcrumb">{{ page.title }}</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <h2>
+    Latest
+    {% if page.categories[0] == "blog" %}
+      Blog Posts
+    {% else if page.categories[0] == "resources" %}
+      Resources
+    {% endif %}
+    in
+    {{ page.title }}
+  </h2>
+  <div class="row">
+
+    {% assign post_count = 0 %}
+    {% for post in site.posts %}
+      {% if post.categories contains page.key %}
+        {% capture post_count %}{{ post_count | plus: 1 }}{% endcapture %}
+        <div class="col s12 m6 l4">
+          <div class="card">
+            <div class="card-image">
+              <img src="/avons-adventure/img/thumbs/{{ post.thumb }}">
+            </div>
+            <div class="card-content">
+              <span class="card-title">
+                {{ post.title }}
+              </span>
+              <p>{{ post.content | strip_html | truncatewords: 20 }}</p>
+            </div>
+            <div class="card-action">
+              <a href="/avons-adventure{{ post.url }}">
+                {% if post.categories[0] == "resources" %}
+                  View Resource
+                {% else if post.categories[0] == "blog" %}
+                  View Post
+                {% endif %}
+              </a>
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    {% if post_count == 0 %}
+      <p class="center-align">Nothing posted in this category yet!</p>
+    {% endif %}
+
+  </div>
+</div>

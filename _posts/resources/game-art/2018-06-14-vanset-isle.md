@@ -10,3 +10,4 @@ categories: resources game-art
 <p class="flow-text">Vanset Isle, Avon's home for 70 years.</p>
 <p>I decided to draw a picture of Avon's hometown using my Wacom Intuos tablet, this time to practice drawing scenery.</p>
 <p>The drawing took around 3 or 4 hours, but I wasn't paying too much attention to the time... It's coloured in the same kind of lo-fi style that I think will become the art style of this game.</p>
+<p>As much as I like the little-to-no shading in this lo-fi style, I think one area where I could have improved this piece would have been to shade the cliffs a bit more, because right now they look a little flat, and it's a little hard to tell that they're supposed to be raised up quite high.</p>

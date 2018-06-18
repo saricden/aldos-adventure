@@ -2,7 +2,7 @@
 title: Avon's Adventure
 email: your-email@domain.com
 description: An Open Source Platformer Adventure Game
-baseurl: "/avons-adventure/" # the subpath of your site, e.g. /blog/
+baseurl: "/avons-adventure" # removed the trailing / to fix double slashes, hopefully everything won't explode
 url: "http://yourdomain.com" # the base hostname & protocol for your site
 twitter_username: jekyllrb
 github_username:  jekyll
