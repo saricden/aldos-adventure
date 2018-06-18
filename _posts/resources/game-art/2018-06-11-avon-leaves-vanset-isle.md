@@ -7,4 +7,6 @@ categories: resources game-art
 ---
 <img class="materialboxed" src="/avons-adventure/img/gameart/avon-leaves-vanset-isle.png">
 
-<p>Avon gazes back at his hometown of Vanset Isle, a town he helped build. Despite his composure, Avon is gripped by fear; it's the first time in his long life he has left the shores of Vancoi Isle. Accompanied by his pet owl Rezi, he embarks on a great quest to find his lost twin brother, Ivan.</p>
+<p class="flow-text">The advent of a great adventure...</p>
+
+<p>Avon gazes back at his hometown of Vanset Isle, a town he helped build. Despite his composure, Avon is gripped by fear; it's the first time in his long life he has left the shores of Vanset Isle. Accompanied by his pet owl Rezi, he embarks on a great quest to find his lost twin brother, Ivan.</p>
