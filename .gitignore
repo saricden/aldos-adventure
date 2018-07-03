@@ -1,2 +1,4 @@
 node_modules/
 public/game.bundle.js
+.sass-cache/
+_site/
