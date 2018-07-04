@@ -126,57 +126,21 @@ class Game extends Phaser.Scene {
     }).setScrollFactor(0);
 
     // Add arrow btns
-    const lBtn = this.add.image(0, window.innerHeight, 'btn-left').setScrollFactor(0);
-    lBtn.setOrigin(0, 1);
-    lBtn.setInteractive();
+    this.lBtn = this.add.image(0, window.innerHeight, 'btn-left').setScrollFactor(0);
+    this.lBtn.setOrigin(0, 1);
+    this.lBtn.setInteractive();
 
-    lBtn.on('pointerdown', () => {
-      this.btns.L = true;
-      this.btns.R = false;
-    });
-    lBtn.on('pointerup', () => {
-      this.btns.L = false;
-    });
-
-    const rBtn = this.add.image(80, window.innerHeight, 'btn-right').setScrollFactor(0);
-    rBtn.setOrigin(0, 1);
-    rBtn.setInteractive();
-
-    rBtn.on('pointerdown', () => {
-      this.btns.R = true;
-      this.btns.L = false;
-    });
-    rBtn.on('pointerup', () => {
-      this.btns.R = false;
-    });
+    this.rBtn = this.add.image(80, window.innerHeight, 'btn-right').setScrollFactor(0);
+    this.rBtn.setOrigin(0, 1);
+    this.rBtn.setInteractive();
 
     // Jump btn
-    const jBtn = this.add.image(window.innerWidth-80, window.innerHeight, 'btn-up').setScrollFactor(0);
-    jBtn.setOrigin(1, 1);
-    jBtn.setInteractive();
+    this.jBtn = this.add.image(window.innerWidth-80, window.innerHeight, 'btn-up').setScrollFactor(0);
+    this.jBtn.setOrigin(1, 1);
+    this.jBtn.setInteractive();
 
     const aBtn = this.add.image(window.innerWidth, window.innerHeight, 'btn-atk').setScrollFactor(0);
     aBtn.setOrigin(1, 1);
-
-    this.input.on('pointermove', (pointer) => {
-      if (pointer.isDown) {
-        if (lBtn.getBounds().contains(pointer.x, pointer.y)) {
-          this.btns.L = true;
-          this.btns.R = false;
-        }
-        else if (rBtn.getBounds().contains(pointer.x, pointer.y)) {
-          this.btns.R = true;
-          this.btns.L = false;
-        }
-        else if (jBtn.getBounds().contains(pointer.x, pointer.y)) {
-          this.btns.J = true;
-        }
-        else {
-          this.btns.R = false;
-          this.btns.L = false;
-        }
-      }
-    });
 
 
     // Camera
@@ -189,58 +153,83 @@ class Game extends Phaser.Scene {
     this.keys.S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
     this.keys.A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
     this.keys.D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+
+    // Enable a second touch screen pointer
+    this.input.addPointer();
   }
 
   update() {
-    // Key input & movement
-    if (this.keys.A.isDown || this.btns.L) {
-      this.blobGuy.setVelocityX(-160);
-      this.blobGuy.setFlipX(true);
-    }
-    else if (this.keys.D.isDown || this.btns.R) {
-      this.blobGuy.setVelocityX(160);
-      this.blobGuy.setFlipX(false);
-    }
-    else {
-      this.blobGuy.setVelocityX(0);
+    const {pointer1, pointer2} = this.input;
+    const {lBtn, rBtn, jBtn, keys, blobGuy, jordan1, jordan2} = this;
+    let {btns} = this;
+
+    // Handle multi-touch btn input
+    if (pointer1.isDown || pointer2.isDown) {
+      if (lBtn.getBounds().contains(pointer1.x, pointer1.y) || lBtn.getBounds().contains(pointer2.x, pointer2.y)) {
+        btns.L = true;
+        btns.R = false;
+      }
+      else if (rBtn.getBounds().contains(pointer1.x, pointer1.y) || rBtn.getBounds().contains(pointer2.x, pointer2.y)) {
+        btns.R = true;
+        btns.L = false;
+      }
+      else if (jBtn.getBounds().contains(pointer1.x, pointer1.y) || jBtn.getBounds().contains(pointer2.x, pointer2.y)) {
+        btns.J = true;
+      }
+      else {
+        btns.R = false;
+        btns.L = false;
+      }
     }
 
-    if (this.blobGuy.body.blocked.down && (this.keys.W.isDown || this.btns.J)) {
-      this.blobGuy.setVelocityY(-210);
-      this.btns.J = false;
+    // Key input & movement
+    if (keys.A.isDown || btns.L) {
+      blobGuy.setVelocityX(-160);
+      blobGuy.setFlipX(true);
+    }
+    else if (keys.D.isDown || btns.R) {
+      blobGuy.setVelocityX(160);
+      blobGuy.setFlipX(false);
+    }
+    else {
+      blobGuy.setVelocityX(0);
+    }
+
+    if (blobGuy.body.blocked.down && (keys.W.isDown || btns.J)) {
+      blobGuy.setVelocityY(-210);
     }
 
     // Animations
-    if (this.blobGuy.body.blocked.down) {
-      if (this.blobGuy.body.velocity.x > 0) {
-        this.blobGuy.anims.play('run', true);
+    if (blobGuy.body.blocked.down) {
+      if (blobGuy.body.velocity.x > 0) {
+        blobGuy.anims.play('run', true);
       }
-      else if (this.blobGuy.body.velocity.x < 0) {
-        this.blobGuy.anims.play('run', true);
+      else if (blobGuy.body.velocity.x < 0) {
+        blobGuy.anims.play('run', true);
       }
       else {
-        this.blobGuy.anims.play('idle', true);
+        blobGuy.anims.play('idle', true);
       }
     }
     else {
-      if (this.blobGuy.body.velocity.y < 0) {
-        this.blobGuy.anims.play('jump', true);
+      if (blobGuy.body.velocity.y < 0) {
+        blobGuy.anims.play('jump', true);
       }
       else {
-        this.blobGuy.anims.play('fall', true);
+        blobGuy.anims.play('fall', true);
       }
     }
     
     // Jordan's dudes
-    if (this.blobGuy.x > this.jordan1.x)
-      this.jordan1.setFlipX(false);
+    if (blobGuy.x > jordan1.x)
+      jordan1.setFlipX(false);
     else
-      this.jordan1.setFlipX(true);
+      jordan1.setFlipX(true);
 
-    if (this.blobGuy.x > this.jordan2.x)
-      this.jordan2.setFlipX(false);
+    if (blobGuy.x > jordan2.x)
+      jordan2.setFlipX(false);
     else
-      this.jordan2.setFlipX(true);
+      jordan2.setFlipX(true);
   }
 }
 
